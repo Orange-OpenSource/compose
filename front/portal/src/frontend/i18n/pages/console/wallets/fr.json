@@ -1,0 +1,27 @@
+{
+  "pages": {
+    "console": {
+      "wallets": {
+        "meta": {
+          "title": "Mes portefeuilles | SCaaS"
+        },
+        "breadcrumb": "Mes portefeuilles",
+        "title": "Portefeuilles ({count})",
+        "table": {
+          "name": "Nom",
+          "id": "ID",
+          "address": "Adresse",
+          "blockchain": "Blockchain",
+          "actions": "Actions"
+        },
+        "addWallet": "Ajouter un portefeuille",
+        "createWallet": "Créer un portefeuille",
+        "importWallet": "Importer un portefeuille",
+        "displayWallet": "Afficher le portefeuille",
+        "deleteWallet": "Supprimer le portefeuille",
+        "deleteWalletConfirmation": "Vous êtes sur le point de supprimer ce portefeuille, souhaitez-vous continuer ? Attention, toutes les applications rattachées à ce portefeuille ne seront pus utilisables.",
+        "deleteWalletSuccess": "Le portefeuille a bien été supprimé"
+      }
+    }
+  }
+}

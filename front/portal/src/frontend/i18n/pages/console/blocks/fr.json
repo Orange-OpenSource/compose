@@ -1,0 +1,25 @@
+{
+  "pages": {
+    "console": {
+      "blocks": {
+        "meta": {
+          "title": "Blocs | SCaaS"
+        },
+        "breadcrumb": "Blocs",
+        "title": "Blocs",
+        "warningTitle": "Attention, clef d'API non renseignée",
+        "warning": "Attention, vous avez oublié de renseigner la clef d'API associée à l'application que vous souhaitez utiliser. Merci de renseigner ce champ dans la zone de configuration encadrée en bleu avant de pouvoir effectuer la requête.",
+        "errorTitle": "Une erreur s'est produite",
+        "blockNumberOrHash": {
+          "title": "Numéro du bloc ou hash",
+          "placeholder": "Numéro de bloc ou hash (Ex: 012345)"
+        },
+        "search": "Rechercher",
+        "loadPreviousBlock": "Charger le bloc précédent",
+        "card": {
+          "header": "Bloc n°{number}"
+        }
+      }
+    }
+  }
+}

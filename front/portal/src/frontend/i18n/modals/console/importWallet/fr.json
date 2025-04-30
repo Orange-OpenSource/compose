@@ -1,0 +1,21 @@
+{
+  "modals": {
+    "console": {
+      "importWallet": {
+        "title": "Importer un portefeuille",
+        "form": {
+          "blockchain": "Blockchain",
+          "name": "Nom",
+          "invalidName": "Le nom est invalide",
+          "password": "Mot de passe",
+          "invalidPassword": "Le mot de passe est invalide",
+          "file": "Fichier JSON",
+          "invalidFile": "Le fichier est invalide",
+          "filePassword": "Mot de passe du fichier",
+          "submit": "Importer",
+          "cancel": "Annuler"
+        }
+      }
+    }
+  }
+}

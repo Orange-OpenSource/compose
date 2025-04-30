@@ -1,0 +1,38 @@
+{
+  "pages": {
+    "console": {
+      "contract": {
+        "meta": {
+          "title": "Mon contrat | SCaaS"
+        },
+        "address": "Adresse : {address}",
+        "id": "Identifiant : {id}",
+        "tabs": {
+          "functions": "Fonctions",
+          "events": "Événements"
+        },
+        "functions": {
+          "title": "Liste des fonctions ({count})",
+          "tokenValue": "Nombre de tokens",
+          "warningTitle": "Attention, clef d'API ou mot de passe non renseignée",
+          "warning": "Attention, vous avez oublié de renseigner la clef d'API associée à l'application que vous souhaitez utiliser et/ou le mot de passe du portefeuille. Merci de renseigner ces champs dans la zone de configuration encadrée en bleu avant de pouvoir effectuer la requête."
+        },
+        "console": {
+          "title": "Console d'exécution",
+          "default": "<b>/* En attente d'exécution de fonction */</b>",
+          "executing": "<br /><br />Execution de la méthode {method} en cours...",
+          "checking": "<br /><br />Vérification du statut..."
+        },
+        "events": {
+          "title": "Liste des événements supportés ({count})",
+          "displayEvent": "Afficher l'événement ",
+          "table": {
+            "name": "Nom",
+            "parameters": "Paramètres",
+            "actions": "Actions"
+          }
+        }
+      }
+    }
+  }
+}

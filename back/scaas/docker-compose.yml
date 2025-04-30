@@ -1,0 +1,97 @@
+version: '3'
+services:
+    scaas:
+      image: registry.gitlab.tech.orange/smartchain/compose/v3/backend/scaas:dev
+      restart: always
+      container_name: scaas
+      command: "./scaas/bin/scaas -Dconfig.resource=application.conf
+        -Dblockchain.active.0=local
+       -Dblockchain.active.1=alastria
+       -Dblockchain.active.2=abfTestnet
+       -Dblockchain.alastria.type=ethereumlegacy
+       -Dblockchain.alastria.chain-id=2020
+       -Dblockchain.alastria.url=https://blockchain-alastria-besu.liveidentity.com/rpc
+       -Dblockchain.local.type=ethereum
+       -Dblockchain.local.chain-id=1337
+       -Dblockchain.local.url=http://local-testnet:8545
+       -Dblockchain.abfTestnet.type=ethereum
+       -Dblockchain.abfTestnet.chain-id=751264037
+       -Dblockchain.abfTestnet.url=http://abf-testnet:8551
+       -Dblockchain.wallet.master-key=my-secret-key
+       -Dproject.repository=deployments
+       -Dmongodb.uri=mongodb://mongo-scaas:27017/scaas
+       -Dplay.http.secret.key=<SecretKey>
+       "
+      environment:
+        VIRTUAL_PORT: 9000
+        VIRTUAL_HOST: "backend.compose.liveidentity.com"
+        LETSENCRYPT_HOST: "backend.compose.liveidentity.com"
+      depends_on:
+        - mongo-scaas
+      ports:
+        - 9000 # specify port forewarding
+
+    portal:
+      image: registry.gitlab.tech.orange/smartchain/compose/v3/frontend/portal:dev
+      restart: always
+      container_name: front
+      environment:
+        VIRTUAL_PORT: 8080
+        VIRTUAL_HOST: "compose.liveidentity.com"
+        LETSENCRYPT_HOST: "compose.liveidentity.com"
+        NODE_ENV : production
+        SERVER_PORT: 8080
+        SCAAS_URL: http://scaas:9000
+        JWT_SECRET: <JWTSecret>
+      command: npm start
+      ports:
+        - 8080 # specify port forewarding
+
+
+    abf-testnet:
+      image: christinehennebert/testnet-verifier:0.3
+      restart: always
+      container_name: abf-testnet
+      user: abfuser:abfgroup
+      environment:
+        - KEYSTORE_ADDRESS=<KeyStoreAddress>
+        - GETH_PARAMS=--syncmode light --http --http.vhosts "*" --http.corsdomain "*" --http.api eth,net,web3 --http.addr 0.0.0.0 --http.port 8443
+      volumes:
+        - ./data/keystore/:/home/abfuser/node/keystore/
+        - ./data/password.txt:/home/abfuser/node/password.txt
+      command: "sh -c /home/abfuser/node/entrypoint.sh"
+      ports:
+        - "30307:30306/tcp"
+        - "30307:30306/udp"
+        - 8551
+    local-testnet:
+      image: registry.gitlab.tech.orange/smartchain/compose/v3/testnet_geth:dev
+      restart: always
+      user: localuser:localgroup
+      container_name: local-testnet
+      environment:
+        - GETH_PARAMS=--networkid 1337  --http --http.vhosts "*" --http.corsdomain "*" --http.api eth,net,web3 --http.addr 0.0.0.0 --http.port 8545 --ws --ws.port 3334 --ws.addr 0.0.0.0 --ws.api eth,net,web3 --ws.origins "*"
+      volumes:
+        - ./local-testnet/node:/home/localuser/node
+      command: "geth --datadir ~/node/ --dev --networkid 1337  --http --http.vhosts \"*\" --http.corsdomain \"*\" --http.api eth,net,web3 --http.addr 0.0.0.0 --http.port 8545 --ws --ws.port 3334 --ws.addr 0.0.0.0 --ws.api eth,net,web3 --ws.origins \"*\" "
+      ports:
+        - 8545
+        - 3334
+
+    mongo-scaas:
+      image: mongo:5.0
+      restart: always
+      container_name: mongo-scaas
+      environment:
+        - MONGO_DATA_DIR=/data/db
+        - MONGO_LOG_DIR=/dev/null
+      volumes:
+        - ./scaas/db:/data/db
+      command: mongod --logpath=/dev/null # --quiet
+      expose:
+        - 27017
+
+networks:
+     default:
+       external:
+         name: nginx-proxy

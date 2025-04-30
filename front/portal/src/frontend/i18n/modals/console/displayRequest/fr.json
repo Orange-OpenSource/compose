@@ -1,0 +1,19 @@
+{
+  "modals": {
+    "console": {
+      "displayRequest": {
+        "title": "Afficher la requête à l'API",
+        "form": {
+          "ok": "Ok"
+        },
+        "tabs": {
+          "curl": "Curl",
+          "php": "PHP",
+          "java": "Java",
+          "js": "Javascript",
+          "ruby": "Ruby"
+        }
+      }
+    }
+  }
+}

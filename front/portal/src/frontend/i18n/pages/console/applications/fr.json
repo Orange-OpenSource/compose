@@ -1,0 +1,24 @@
+{
+  "pages": {
+    "console": {
+      "applications": {
+        "meta": {
+          "title": "Mes applications | SCaaS"
+        },
+        "breadcrumb": "Mes applications",
+        "title": "Applications ({count})",
+        "table": {
+          "name": "Nom",
+          "id": "ID",
+          "blockchain": "Blockchain",
+          "actions": "Actions"
+        },
+        "addApplication": "Ajouter une application",
+        "displayApplication": "Afficher l'application",
+        "deleteApplication": "Supprimer l'application",
+        "deleteApplicationConfirmation": "Vous êtes sur le point de supprimer cette application, souhaitez-vous continuer ?",
+        "deleteApplicationSuccess": "L'application a bien été supprimée"
+      }
+    }
+  }
+}

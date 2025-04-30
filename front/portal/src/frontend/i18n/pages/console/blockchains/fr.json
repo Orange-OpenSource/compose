@@ -1,0 +1,27 @@
+{
+  "pages": {
+    "console": {
+      "blockchains": {
+        "meta": {
+          "title": "Blockchains | Smart Chain"
+        },
+        "breadcrumb": "Blockchains",
+        "description": "Retrouvez les différentes blockchains disponible sur la plateforme SCaaS",
+        "title": "Blockchains",
+        "type": "<strong>Type</strong>: {type}",
+        "chainInfo": {
+          "chainId": "<strong>Chain ID</strong>: {id}",
+          "blockNumber": "<strong>Block Number</strong>: {blockNumber}",
+          "gasPrice":  "<strong>Gas Price</strong>: {gasPrice}",
+          "protocol": "<strong>Protocole</strong>: {protocol}"
+        },
+        "web3Client": {
+          "title": "Web3 Client",
+          "chainId": "<strong>Chain ID</strong>: {id}",
+          "url": "<strong>URL</strong>: {url}",
+          "version": "<strong>Version</strong>: {version}"
+        }
+      }
+    }
+  }
+}

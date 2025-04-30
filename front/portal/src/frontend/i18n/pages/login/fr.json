@@ -1,0 +1,17 @@
+{
+  "pages": {
+    "login": {
+      "meta": {
+        "title": "Connexion | SCaaS"
+      },
+      "title": "SCaaS",
+      "subtitle": "Console d'administration",
+      "error": "Erreur d'authentification: votre login ou votre mot de passe est erroné.",
+      "form": {
+        "username": "nom d'utilisateur",
+        "password": "mot de passe",
+        "submit": "Se connecter"
+      }
+    }
+  }
+}

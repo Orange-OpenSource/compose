@@ -1,0 +1,24 @@
+{
+  "pages": {
+    "console": {
+      "company": {
+        "meta": {
+          "title": "Mon entreprise | SCaaS"
+        },
+        "breadcrumb": "Mon entreprise",
+        "title": "Entreprise",
+        "users": {
+          "title": "Liste des utilisateurs",
+          "table": {
+            "id": "ID",
+            "actions": "Actions"
+          },
+          "actions": {
+            "addUser": "Ajouter un utilisateur",
+            "deleteUser": "Supprimer cet utilisateur"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "components": {
+    "testConfiguration": {
+      "full": {
+        "title": "Configuration de test : application & portefeuille",
+        "description": "Pour pouvoir tester les fonctions du contrat, vous devez d'abord sélectionner votre application et remplir la clé d'API ci-dessous. Pour les fonctions en mode écriture, vous devez aussi renseigner le mot de passe du wallet associé à votre application."
+      },
+      "light": {
+        "title": "Configuration de test : application",
+        "description": "Pour pouvoir afficher des transactions ou des événements, vous devez d'abord sélectionner votre application et remplir la clé d'API ci-dessous."
+      },
+      "application": {
+        "title": "Application",
+        "apiKey": "Clé d'API"
+      },
+      "wallet": {
+        "title": "Mot de passe du portefeuille",
+        "password": "Mot de passe"
+      }
+    }
+  }
+}

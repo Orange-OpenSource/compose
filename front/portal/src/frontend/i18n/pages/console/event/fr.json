@@ -1,0 +1,42 @@
+{
+  "pages": {
+    "console": {
+      "events": {
+        "breadcrumb": "Événements"
+      },
+      "event": {
+        "meta": {
+          "title": "Événement | SCaaS"
+        },
+        "parameters": "Paramètres : {parameters}",
+        "tabs": {
+          "listeners": "Listeners",
+          "events": "Événements émis"
+        },
+        "events": {
+          "title": "Liste des événements émis",
+          "warningTitle": "Attention, clef d'API non renseignée",
+          "warning": "Attention, vous avez oublié de renseigner la clef d'API associée à l'application que vous souhaitez utiliser. Merci de renseigner ce champ dans la zone de configuration encadrée en bleu avant de pouvoir effectuer la requête.",
+          "table": {
+            "name": "Nom",
+            "address": "Adresse",
+            "blockNumber": "Numéro de bloc",
+            "parameters": "Paramètres"
+          }
+        },
+        "listeners": {
+          "title": "Liste des listeners",
+          "table": {
+            "id": "ID",
+            "url": "URL",
+            "actions": "Actions"
+          },
+          "deleteEventListenerConfirmation": "Vous êtes sur le point de supprimer ce listener, souhaitez-vous continuer ?",
+          "deleteEventListenerSuccess": "Le listener a bien été supprimé"
+        },
+        "addEventListener": "Ajouter un listener",
+        "loadEvents": "Charger tous les événements"
+      }
+    }
+  }
+}

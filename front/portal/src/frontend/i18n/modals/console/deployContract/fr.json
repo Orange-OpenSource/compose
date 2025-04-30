@@ -1,0 +1,22 @@
+{
+  "modals": {
+    "console": {
+      "deployContract": {
+        "title": "Déployer un contrat",
+        "form": {
+          "wallet": "Portfeuille",
+          "blockchain": "Blockchain",
+          "walletOptions": "Options",
+          "invalidWallet": "Ce champ ne peut pas être vide",
+          "walletPassword": "Mot de passe du portefeuille",
+          "invalidPassword": "Ce champ ne peut pas être vide",
+          "file": "Fichier ZIP",
+          "invalidFile": "Le fichier est obligatoire",
+          "submit": "Déployer",
+          "finish": "Ok",
+          "cancel": "Annuler"
+        }
+      }
+    }
+  }
+}

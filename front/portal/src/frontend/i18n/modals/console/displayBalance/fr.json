@@ -1,0 +1,11 @@
+{
+  "modals": {
+    "console": {
+      "displayBalance": {
+        "title": "Solde du portefeuille",
+        "balance": "Le solde actuel du portefeuille est de <strong>{balance}</strong> gwei",
+        "close": "Fermer"
+      }
+    }
+  }
+}

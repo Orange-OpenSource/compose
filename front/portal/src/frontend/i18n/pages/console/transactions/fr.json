@@ -1,0 +1,25 @@
+{
+  "pages": {
+    "console": {
+      "transactions": {
+        "meta": {
+          "title": "Transactions | SCaaS"
+        },
+        "breadcrumb": "Transactions",
+        "title": "Transactions",
+        "console": {
+          "title": "Console d'exécution",
+          "default": "<b>/* En attente */</b>",
+          "executing": "<br /><br />Récupération de la transaction {hash} en cours..."
+        },
+        "warningTitle": "Attention, clef d'API non renseignée",
+        "warning": "Attention, vous avez oublié de renseigner la clef d'API associée à l'application que vous souhaitez utiliser. Merci de renseigner ce champ dans la zone de configuration encadrée en bleu avant de pouvoir effectuer la requête.",
+        "hash": {
+          "title": "Hash de la transaction",
+          "placeholder": "Hash de la transaction (Ex: 0x0000)"
+        },
+        "search": "Rechercher"
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "modals": {
+    "default": {
+      "title": {
+        "error": "Erreur",
+        "success": "Succès"
+      },
+      "form": {
+        "ok": "OK",
+        "cancel": "Annuler"
+      }
+    }
+  }
+}

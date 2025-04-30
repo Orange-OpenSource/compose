@@ -1,0 +1,23 @@
+{
+  "modals": {
+    "console": {
+      "addApplication": {
+        "title": "Créer une application",
+        "form": {
+          "name": "Nom de l'application",
+          "blockchain": "Blockchain",
+          "wallet": "Portefeuille",
+          "invalidWallet": "Aucun portefeuille existant pour cette blockchain. Veuillez créer un portefeuille avant de pouvoir continuer",
+          "invalidName": "Le nom est obligatoire",
+          "apiKey": "Clé d'API",
+          "apiKeyDetails": "La clé d'API générée permet à votre application d'accéder aux APIs SCaaS.<br />Notez bien cette information, elle ne pourra plus être affichée",
+          "copy": "copier la clé",
+          "copyOk": "clé copiée",
+          "submit": "Créer",
+          "finish": "Ok",
+          "cancel": "Annuler"
+        }
+      }
+    }
+  }
+}

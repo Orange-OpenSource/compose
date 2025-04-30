@@ -1,0 +1,23 @@
+{
+  "pages": {
+    "home": {
+      "meta": {
+        "title": "SmartChain as a Service by Orange | SCaaS"
+      },
+      "title": "SCaaS",
+      "subtitle": "SmartChain as a Service",
+      "feature1": {
+        "title": "Compose. <span class=\"text-muted\">L'outil de gestion de la blockchain.</span>",
+        "description": "Compose est une application qui permet de gérer le cycle de vie d’applications Blockchain. Cela comprend la conception et le déploiement de ces applications, ainsi que la gestion des interactions avec elles. Compose peut être déployé au-dessus de différents réseaux Blockchain (aujourd’hui, Ethereum ou Alastria). Il est possible de concevoir directement un smart contract dans l’outil et de le déployer. Un fois déployé, une API REST est généré automatiquement afin de pouvoir interagir avec lui (input et output)."
+      },
+      "feature2": {
+        "title": "Un outil complet. <span class=\"text-muted\">Testez vous-même.</span>",
+        "description": "Concrètement, l’outil Compose se décline comme trois images Docker à déployer plus une base de donnée mongoDB. Le frontend de l’application Compose est codé en Vue 3 et propose l’ensemble de l’interface à l’utilisation incluant un système de déploiement. Enfin, une interface permet de visualiser les contrats déployés et d’interagir avec les fonctions de ce contrat via des formulaires. Un contrat développé par ailleurs (abi) peut aussi être importé pour interagir avec lui de la même manière que si le contrat avait été dévoloppé localement. Le backend est codé avec le framework Play ! en Scala. Il inclut notamment les interfaces pour se connecter à la Blockchain sous-jacente (Ethereum ou Alastria) et une installation de solc, le compilateur solidity."
+      },
+      "feature3": {
+        "title": "Un projet Orange Innovation.<br /><span class=\"text-muted\">En collaboration avec Orange Business</span>",
+        "description": "Le projet SCaaS est issu des travaux de recherche menés chez Orange Innovation, en étroite collaboration avec Orange Business."
+      }
+    }
+  }
+}

@@ -1,0 +1,127 @@
+@startuml
+
+!pragma teoz true
+!define MONOSPACE #EBEFF4
+!define DARK #205081
+!define ORANGE #FF7900
+
+skinparam classAttributeFontColor red
+
+skinparam participant {
+    AttributeFontColor black
+    AttributeFontSize  15
+    BackgroundColor    ORANGE
+    BorderColor        ORANGE
+}
+
+skinparam note {
+    FontColor          black
+    FontSize           13
+    BackgroundColor    white
+    BorderColor        black
+}
+
+skinparam actor {
+    AttributeFontColor black
+    AttributeFontSize  15
+    BackgroundColor    white
+    BorderColor        black
+}
+
+skinparam sequence {
+ArrowColor black
+LifeLineBorderColor black
+GroupBackgroundColor white
+BoxBorderColor ORANGE
+}
+
+skinparam entity {
+    AttributeFontColor black
+    AttributeFontSize 15
+    BackgroundColor white
+    BorderColor ORANGE
+}
+
+skinparam database {
+    AttributeFontColor black
+    AttributeFontSize 15
+    BackgroundColor white
+    BorderColor ORANGE
+}
+
+skinparam rectangle {
+    AttributeFontColor black
+    AttributeFontSize 15
+    BackgroundColor white
+    BorderColor ORANGE
+}
+
+skinparam component {
+    AttributeFontColor black
+    AttributeFontSize 15
+    BackgroundColor white
+    BorderColor ORANGE
+}
+
+skinparam cloud {
+    AttributeFontColor black
+    AttributeFontSize 15
+    BackgroundColor white
+    BorderColor ORANGE
+}
+
+skinparam legendBackgroundColor white
+
+rectangle "Host" as host {
+    port "36306/udp" as 30306udp
+    port "36306/tcp" as 30306
+    port "443/tcp"  as 443
+
+    cloud "NGINX Docker network" {
+
+       rectangle "Let's encrypt companion" as le
+       rectangle "Docker template generator" as gen
+
+
+        component "Reverse proxy" as rp {
+            port "443/tcp" as rp443
+        }
+
+        component "SCaaS" as scaas {
+            port "9000/tcp" as scaas9000
+        }
+
+        component "Frontend" as frontend {
+            port "8080/tcp" as frontend8080
+        }
+
+        component "MongoDB" as mongodb {
+            port "27017/tcp" as mongo27017
+        }
+
+        component "ABF testnet node" as abftestnet {
+            port "36306/udp" as abf30306udp
+            port "36306/tcp" as abf30306
+            port "8545/tcp" as abf8545
+        }
+
+        component "Local testnet node" as lb {
+            port "8545/tcp" as lb8545
+        }
+
+    }
+}
+
+30306 --> abf30306
+30306udp --> abf30306udp
+scaas --> abf8545
+scaas --> lb8545
+scaas --> mongo27017
+frontend --> scaas9000
+rp --> frontend8080
+rp --> scaas9000
+443 --> rp443
+rp ..> le:use
+rp ..> gen:use
+
+@enduml

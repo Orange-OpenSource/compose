@@ -1,0 +1,31 @@
+{
+  "pages": {
+    "console": {
+      "deployments": {
+        "meta": {
+          "title": "Mes déploiements | SCaaS"
+        },
+        "breadcrumb": "Mes déploiements",
+        "title": "Déploiements ({count})",
+        "search": {
+          "title": "Chercher un déploiement",
+          "placeholder": "Nom du déploiement",
+          "clear": "Effacer"
+        },
+        "table": {
+          "name": "nom",
+          "deploymentId": "ID",
+          "blockchain": "blockchain",
+          "status": "statut",
+          "actions": "actions"
+        },
+        "status": {
+          "done": "déployé",
+          "ongoing": "en cours"
+        },
+        "displayDeployment": "Afficher le déploiement",
+        "deployContract": "Déployer un contrat"
+      }
+    }
+  }
+}

@@ -1,0 +1,2730 @@
+openapi: 3.0.0
+info:
+  title: Compose API
+  description: The new version of the Smartchain APIs
+  version: 3.1.0
+
+servers:
+  - url: https://backend.compose.liveidentity.com/api/v3
+  - url: http://localhost:9000/api/v3
+
+tags:
+  - name: Companies
+    description: Endpoints for managing companies.
+  - name: Users
+    description: Endpoints for managing users.
+  - name: Credentials
+    description: Endpoints for managing credentials.
+  - name: Wallets
+    description: Wallets can either be created or imported via the Smartchain APIs. A user can have multiple wallets pointing to the same blockchain instance.
+  - name: Applications
+    description: Applications are used to invoke contract functions
+  - name: Blockchain instances
+    description: Describe the blockchains connected to this compose instance
+  - name: Deployments
+    description: The deployment module to deploy smart contract on registered networks
+  - name: Contracts
+    description: Contracts can either be deployed via the Smartchain platform by providing a ZIP file containing the sources of the contract. They can also be imported on the platform by providing the ABI of an already deployed contract.
+  - name: Blocks
+    description: Blocks operation to visualize the state of a given blockchain
+  - name: Transactions
+    description: Blockchain transactions
+  - name: Events
+    description: Events occurring on Smart Contracts
+  - name: Event listeners
+    description: Listeners (Webhooks/WS/...) for contracts events
+  - name: Project Logs
+    description: Errors information
+  - name: Health
+    description: Service info and status
+
+paths:
+
+  /companies:
+    post:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Create a new company
+      tags: [ Companies ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyInput'
+      responses:
+        '201':
+          description: Company created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get all companies
+      tags: [ Companies ]
+      responses:
+        '200':
+          description: Companies retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /companies/{companyId}:
+    put:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Update a company by ID
+      tags: [ Companies ]
+      parameters:
+        - in: path
+          name: companyId
+          required: true
+          schema:
+            type: string
+          description: ID of the company
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompanyInput'
+      responses:
+        '201':
+          description: Company updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Company not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get company by ID
+      tags: [ Companies ]
+      parameters:
+        - in: path
+          name: companyId
+          required: true
+          schema:
+            type: string
+          description: ID of the company
+      responses:
+        '200':
+          description: Company retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Company not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Delete company by ID
+      tags: [ Companies ]
+      parameters:
+        - in: path
+          name: companyId
+          required: true
+          schema:
+            type: string
+          description: ID of the company
+      responses:
+        '204':
+          description: Company deleted successfully
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Company not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /companies/{companyId}/users:
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get company users by ID (Optional)
+      tags: [ Companies ]
+      parameters:
+        - in: path
+          name: companyId
+          required: true
+          schema:
+            type: string
+          description: ID of the company
+      responses:
+        '200':
+          description: Company users retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Company'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Company not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /users:
+    post:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Create a new user
+      tags: [ Users ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get all users
+      tags: [ Users ]
+      responses:
+        '200':
+          description: Users retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}:
+    put:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Update a user by ID
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get user by ID
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user
+      responses:
+        '200':
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Delete user by ID
+      tags: [ Users ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user
+      responses:
+        '204':
+          description: User deleted successfully
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /users/{userId}/credential:
+    put:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Update a credential by ID
+      tags: [ Credentials ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: ID of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialInput'
+      responses:
+        '201':
+          description: Credential updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Credential'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Credential not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /users/{userId}/applications:
+    post:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Create a new application
+      tags: [ Applications ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationInput'
+      responses:
+        '201':
+          description: Application created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get all applications
+      tags: [ Applications ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      responses:
+        '200':
+          description: Applications retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/applications/{applicationId}:
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get application by ID
+      tags: [ Applications ]
+      parameters:
+        - in: path
+          name: applicationId
+          required: true
+          schema:
+            type: string
+          description: ID of the application
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      responses:
+        '200':
+          description: Application retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Delete application by ID
+      tags: [ Applications ]
+      parameters:
+        - in: path
+          name: applicationId
+          required: true
+          schema:
+            type: string
+          description: ID of the application
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      responses:
+        '204':
+          description: Application deleted successfully
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /users/{userId}/wallets:
+    post:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Create a wallet for a user
+      tags: [ Wallets ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigWallet'
+      responses:
+        '201':
+          description: Wallet created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wallet'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/wallets/import:
+    post:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: import a wallet for a user
+      tags: [ Wallets ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportWallet'
+      responses:
+        '201':
+          description: Wallet imported successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wallet'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get all wallets
+      tags: [ Wallets ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      responses:
+        '200':
+          description: Wallets retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Wallet'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/blockchains/{blockchain}/wallets/{walletAddress}:
+    post:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Import an external wallet from a different provider
+      tags: [ Wallets ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: walletAddress
+          required: true
+          schema:
+            type: string
+          description: Address of the wallet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigWallet'
+      responses:
+        '201':
+          description: Wallet imported successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wallet'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get wallet by Address
+      tags: [ Wallets ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: walletAddress
+          required: true
+          schema:
+            type: string
+          description: Address of the wallet
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+      responses:
+        '200':
+          description: Wallet retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Wallet'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Wallet not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Delete wallet by Address
+      tags: [ Wallets ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: walletAddress
+          required: true
+          schema:
+            type: string
+          description: Address of the wallet
+      responses:
+        '204':
+          description: Wallet deleted successfully
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Wallet not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/blockchains/{blockchain}/wallets/{walletAddress}/balance:
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: "Send funds to another wallet"
+      tags: [ Wallets ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: walletAddress
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Funds sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WalletBalance'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Wallet not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /blockchains:
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get list of supported blockchains
+      tags: [ Blockchain instances ]
+      responses:
+        '200':
+          description: List of blockchains retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Blockchain'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}:
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Return the blockchain infos
+      tags: [ Blockchain instances ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+      responses:
+        '200':
+          description: Info retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Blockchain'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /users/{userId}/deployments:
+    post:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Create a smart contract
+      tags: [ Deployments ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DeploymentInput'
+      responses:
+        '201':
+          description: Contract created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deploymentId:
+                    type: string
+                    example: "54f83c03-d57e-49fa-a1cb-0c94a5038ca5"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get list of deployments
+      tags: [ Deployments ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      responses:
+        '200':
+          description: Retrieve all deployments on this blockchain
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Deployment'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/deployments/ongoing:
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get list of ongoing deployments
+      tags: [ Deployments ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      responses:
+        '200':
+          description: Retrieve all deployments on this blockchain
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OngoingDeployment'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/deployments/{deploymentId}:
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get list of deployments for a specific deploy operation
+      tags: [ Deployments ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: deploymentId
+          required: true
+          schema:
+            type: string
+          description: Deployment Id
+      responses:
+        '200':
+          description: List of contracts retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Deployment'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /users/{userId}/contracts:
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get list of contracts
+      tags: [ Contracts ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+      responses:
+        '200':
+          description: List of contracts retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contract'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/contracts/{address}:
+    post:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Create a new contract with a given ABI
+      tags: [ Contracts ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Address of the contract
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContractABIInput'
+      responses:
+        '200':
+          description: List of contracts retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Contract'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get contract by address
+      tags: [ Contracts ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Address of the contract
+      responses:
+        '200':
+          description: Contract retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contract'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/blockchains/{blockchain}/contracts/{address}:
+    delete:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Delete contract by address
+      tags: [ Contracts ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Address of the contract
+      responses:
+        '204':
+          description: contract deleted successfully
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/functions/{functionName}/eval:
+    post:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Execute a function on a smart contract (execution is only allowed to applications)
+      tags: [ Contracts ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: functionName
+          required: true
+          schema:
+            type: string
+            description: name of the function
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FunctionParameters'
+      responses:
+        '200':
+          description: Function executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionHash'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/functions/{functionName}/read:
+    put:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Execute a pure/view function on a smart contract (execution is only allowed to applications)
+      tags: [ Contracts ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: functionName
+          required: true
+          schema:
+            type: string
+            description: name of the function
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadFunctionParameters'
+      responses:
+        '200':
+          description: Function executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractExecutionResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/bytecode:
+    get:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: Get bytecode of a contract
+      tags: [ Contracts ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+          description: Address of the contract
+      responses:
+        '200':
+          description: Contract retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contract'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /blockchains/{blockchain}/contracts/{address}/events:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get all events that where dispatched on a contract
+      tags: [ Events ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/events/since/{blockNumber}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get all events that where dispatched on a contract
+      tags: [ Events ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: blockNumber
+          required: true
+          schema:
+            type: string
+            description: Block number of the last event
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/events/{eventName}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get all events that where dispatched on a contract for a given event type
+      tags: [ Events ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: eventName
+          required: true
+          schema:
+            type: string
+            description: name of the event
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/events/{eventName}/since/{blockNumber}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get all events that where dispatched on a contract for a given event type since blockNumber
+      tags: [ Events ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: eventName
+          required: true
+          schema:
+            type: string
+            description: name of the event
+        - in: path
+          name: blockNumber
+          required: true
+          schema:
+            type: string
+            description: Block number of the last event
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /users/{userId}/contracts/{address}/events/{eventName}/webhooks:
+    post:
+      security:
+        - USER_ID: [ ]
+          USER_TOKEN: [ ]
+      summary: create a listener on the specified event
+      tags: [ Event listeners ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: eventName
+          required: true
+          schema:
+            type: string
+            description: name of the event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '200':
+          description: Webhook created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookListener'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get all listeners for a given event
+      tags: [ Event listeners ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: eventName
+          required: true
+          schema:
+            type: string
+            description: name of the event
+      responses:
+        '200':
+          description: listeners retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebhookListener'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/blockchains/{blockchain}/contracts/{address}/events/{eventName}/webhooks/{listenerId}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get a listener
+      tags: [ Event listeners ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: eventName
+          required: true
+          schema:
+            type: string
+            description: name of the event
+        - in: path
+          name: listenerId
+          required: true
+          schema:
+            type: string
+            description: ID of the listener
+      responses:
+        '200':
+          description: listener retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookListener'
+        '404':
+          description: Listener not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Delete listener by ID
+      tags: [ Event listeners ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: eventName
+          required: true
+          schema:
+            type: string
+            description: name of the event
+        - in: path
+          name: listenerId
+          required: true
+          schema:
+            type: string
+            description: ID of the listener
+      responses:
+        '204':
+          description: Listener deleted successfully
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Listener not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /users/{userId}/logs/project/{projectId}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get logs for a given project
+      tags: [ Project Logs ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            type: string
+          description: id of the project
+      responses:
+        '200':
+          description: Logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectLogs'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/logs/project/{projectId}/method/{method}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get logs for a given project and a given method
+      tags: [ Project Logs ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: projectId
+          required: true
+          schema:
+            type: string
+          description: id of the project
+        - in: path
+          name: method
+          required: true
+          schema:
+            type: string
+          description: name of the method
+      responses:
+        '200':
+          description: Logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectLogs'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Project not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/logs/date/{timestamp}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get logs for a specific date
+      tags: [ Project Logs ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: timestamp
+          required: true
+          schema:
+            type: string
+          description: the date
+      responses:
+        '200':
+          description: Logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectLogs'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Date not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{userId}/logs/date/{since}/{until}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get logs from one date to another
+      tags: [ Project Logs ]
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema:
+            type: string
+          description: id of the user
+        - in: path
+          name: since
+          required: true
+          schema:
+            type: string
+          description: start date
+        - in: path
+          name: until
+          required: true
+          schema:
+            type: string
+          description: end date
+      responses:
+        '200':
+          description: Logs retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectLogs'
+        '403':
+          description: You are not authorized to access this resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Logs not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /login:
+    put:
+      summary: Login service
+      tags: [ Login ]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "admin@compose.com"
+                password:
+                  type: string
+                  example: "Password123!"
+      responses:
+        '200':
+          description: Status details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  userId:
+                    type: string
+                  userToken:
+                    type: string
+                  expirationDate:
+                    type: integer
+        '403':
+          description: Invalid login/password
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+
+  /status:
+    get:
+      summary: Service status
+      tags: [ Health ]
+      responses:
+        '200':
+          description: Status details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '408':
+          description: Request Time-Out
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    API_KEY: # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: api-key  # name of the header, query parameter or cookie
+    CLIENT_ID: # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: client-id  # name of the header, query parameter or cookie
+    USER_ID: # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: user-id  # name of the header, query parameter or cookie
+    USER_TOKEN: # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: user-token  # name of the header, query parameter or cookie
+
+  schemas:
+    Status:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        version:
+          type: string
+      required:
+        - name
+        - status
+        - version
+
+    TransactionOptions:
+      type: object
+      properties:
+        gasLimit:
+          type: string
+          example: "4042055464"
+        gasPremium:
+          type: string
+          example: "2500000000"
+        feeCap:
+          type: string
+          example: "4042055464"
+      required:
+        - gasLimit
+        - gasPremium
+        - feeCap
+
+    Parameter:
+      type: object
+      properties:
+        name:
+          type: string
+          example: my_variable_name
+        type:
+          type: string
+          enum:
+            - uint8
+            - uint16
+            - uint32
+            - uint64
+            - uint128
+            - uint256
+            - address
+            - bool
+            - bytes
+            - string
+        value:
+          type: string
+          example: "42"
+
+    FunctionParameters:
+      type: object
+      properties:
+        options:
+          $ref: '#/components/schemas/TransactionOptions'
+        walletPassword:
+          type: string
+          example: kdmjflqskHYUguyEF65jzqh
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+      required:
+        - parameters
+        - wallet
+
+    ReadFunctionParameters:
+      type: object
+      properties:
+        wallet:
+          type: object
+          properties:
+            address:
+              type: string
+              example: "0xa5fA00103228bf74F7A28aD21736d2856eD10675"
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+      required:
+        - parameters
+
+    CompanyInput:
+      type: object
+      properties:
+        siret:
+          type: string
+          example: "38012986646850"
+
+    Company:
+      type: object
+      properties:
+        companyId:
+          type: string
+          nullable: true
+          example: "54f83c03-d57e-49fa-a1cb-0c94a5038ca5"
+        siret:
+          type: array
+          items:
+            type: string
+            example: "38012986646850"
+
+    DeploymentInput:
+      type: object
+      properties:
+        projectFile:
+          type: string
+          format: binary
+        myBody:
+          type: string
+          example: "{\n\t\"wallet\":{\n\t\t\"address\":\"{{ _.walletAddress }}\",\n\t\t\"password\":\"Password123!\"\n\t},\n\t\"options\": {\n\t\t\"network\": \"ethereum\",\n\t\t\"version\": \"0.8.14\",\n\t\t\"evmVersion\": \"byzantium\",\n\t\t\"optimizerRuns\": 200,\n\t\t\"httpProxy\": \"http://your.proxy:port\",\n\t\t\"httpsProxy\": \"http://your.proxy:port\"\n\t},\n\t\"migration\": [\n\t\t{\n\t\t\t\"name\": \"LibraryName\",\n\t\t\t\"links\": []\n\t\t},\n\t\t{\n\t\t\t\"name\": \"OtherContractName\",\n\t\t\t\"links\": [\n\t\t\t\t\"LibraryName\"\n\t\t\t],\n\t\t\t\"parameters\": []\n\t\t},\n\t\t{\n\t\t\t\"name\": \"MainContractName\",\n\t\t\t\"parameters\": [\n\t\t\t\t{\n\t\t\t\t\"name\": \"a\",\n\t\t\t\t\"valueType\": \"uint256\",\n\t\t\t\t\"value\": 10\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\"name\": \"b\",\n\t\t\t\t\"valueType\": \"string\",\n\t\t\t\t\"value\": \"test\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\"name\": \"c\",\n\t\t\t\t\"valueType\": \"address\",\n\t\t\t\t\"value\": \"0x0000000000000000000000000000000000000000\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\"name\": \"d\",\n\t\t\t\t\"valueType\": \"bool\",\n\t\t\t\t\"value\": false\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"links\": [\n\t\t\t\t\"LibraryName\",\n\t\t\t\t\"OtherContractName\"\n\t\t\t]\n\t\t}\n\t]\n}"
+
+    OngoingDeployment:
+      type: object
+      properties:
+        deploymentId:
+          type: string
+          description: Unique identifier for the deployment.
+        blockchain:
+          type: string
+          description: The name of the blockchain where the deployment is ongoing.
+        userId:
+          type: string
+          description: Identifier of the user who initiated the deployment.
+        updatedAt:
+          type: string
+          description: The timestamp of the last update to the deployment.
+      required:
+        - deploymentId
+        - blockchain
+        - userId
+        - updatedAt
+
+    ImportWallet:
+      type: object
+      properties:
+        walletPassword:
+          type: string
+          description: password of the imported wallet
+        configWallet:
+          type: object
+
+    UserInput:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+        familyName:
+          type: string
+        telephone:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+        companyId:
+          type: string
+
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+          nullable: true
+        email:
+          type: string
+        credential:
+          type: string
+        applications:
+          type: array
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            type: string
+
+    CredentialInput:
+      type: object
+      properties:
+        password:
+          type: string
+        otp:
+          type: string
+          nullable: true
+
+    Credential:
+      type: object
+      properties:
+        credentialId:
+          type: string
+          nullable: true
+        salt:
+          type: string
+        hashedPassword:
+          type: string
+        otp:
+          type: string
+          nullable: true
+
+    ApplicationInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Id backend Dapps
+        ipAddr:
+          type: string
+          nullable: true
+          example: 97.0.15.21
+        walletAddress:
+          type: string
+          nullable: false
+          example: "0xee96F9B58ead251bce262fe88D3BC8D018841DF6"
+        blockchain:
+          type: string
+          nullable: false
+          example: "abfTestnet"
+
+    Application:
+      type: object
+      properties:
+        applicationId:
+          type: string
+          nullable: true
+          example: 72a88b72-51f3-4708-9c49-78eed976e229
+        name:
+          type: string
+          example: Id backend Dapps
+        ipAddr:
+          type: string
+          nullable: true
+          example: 97.0.15.21
+        blockchain:
+          type: string
+          example: abfTestnet
+        walletId:
+          type: string
+          example: f03141b7-1793-4b72-bf61-eb793c798ac2
+
+    ConfigWallet:
+      type: object
+      properties:
+        name:
+          type: string
+          example: My wallet for contract Store
+        password:
+          type: string
+          example: ABqJkRj3PfBQHP8LdPh2u8Wb
+        blockchain:
+          type: string
+          example: abfTestnet
+
+    Wallet:
+      type: object
+      properties:
+        walletId:
+          type: string
+          nullable: true
+          example: f03141b7-1793-4b72-bf61-eb793c798ac2
+        name:
+          type: string
+          example: Main wallet for idContract
+        blockchain:
+          type: string
+          example: local
+        address:
+          type: string
+          example: "0xee96f9b58ead251bce262fe88d3bc8d018841df6"
+        userId:
+          type: string
+          example: 06587cfd-7d13-47fd-bc3e-9506a224dd87
+
+    WalletBalance:
+      type: object
+      properties:
+        amount:
+          type: string
+          example: "42"
+
+    Web3Client:
+      type: object
+      properties:
+        version:
+          type: string
+          example: Ganache/v7.9.1/EthereumJS TestRPC/v7.9.1/ethereum-js
+        url:
+          type: string
+          example: http://127.0.0.1:8545
+        chainId:
+          type: string
+          example: "1337"
+
+    Blockchain:
+      type: object
+      properties:
+        name:
+          type: string
+          example: abfTestnet
+        type:
+          type: string
+          enum: [ ethereum ]
+        web3Client:
+          $ref: '#/components/schemas/Web3Client'
+        chainID:
+          type: string
+          example: "1337"
+        blockNumber:
+          type: string
+          example: "42"
+        gasPrice:
+          type: string
+          example: "2000000000"
+        protocol:
+          type: string
+          example: "0x3f"
+
+    ContractABIInput:
+      type: object
+      properties:
+        name:
+          type: string
+          example: store contract
+        abi:
+          type: string
+          example: "[\n    {\n      \"inputs\": [],\n      \"stateMutability\": \"nonpayable\",\n      \"type\": \"constructor\"\n    },\n    {\n      \"inputs\": [\n        {\n          \"internalType\": \"uint256\",\n          \"name\": \"a\",\n          \"type\": \"uint256\"\n        }\n      ],\n      \"name\": \"set\",\n      \"outputs\": [],\n      \"stateMutability\": \"nonpayable\",\n      \"type\": \"function\"\n    },\n    {\n      \"inputs\": [\n        {\n          \"internalType\": \"uint256\",\n          \"name\": \"b\",\n          \"type\": \"uint256\"\n        }\n      ],\n      \"name\": \"add\",\n      \"outputs\": [\n        {\n          \"internalType\": \"uint256\",\n          \"name\": \"\",\n          \"type\": \"uint256\"\n        }\n      ],\n      \"stateMutability\": \"view\",\n      \"type\": \"function\",\n      \"constant\": true\n    }\n  ]"
+        blockchain:
+          type: string
+          example: "abfTesnet"
+      required:
+        - name
+        - abi
+
+    Contract:
+      type: object
+      properties:
+        contractId:
+          type: string
+          example: c804c53a-7dec-4993-b472-267c008a60ca
+        name:
+          type: string
+          example: Store contract
+        address:
+          type: string
+          example: "0xa5fA00103228bf74F7A28aD21736d2856eD10675"
+        blockchain:
+          type: string
+          example: abfTestnet
+        abi:
+          type: string
+          example: "[\n    {\n      \"inputs\": [],\n      \"stateMutability\": \"nonpayable\",\n      \"type\": \"constructor\"\n    },\n    {\n      \"inputs\": [\n        {\n          \"internalType\": \"uint256\",\n          \"name\": \"a\",\n          \"type\": \"uint256\"\n        }\n      ],\n      \"name\": \"set\",\n      \"outputs\": [],\n      \"stateMutability\": \"nonpayable\",\n      \"type\": \"function\"\n    },\n    {\n      \"inputs\": [\n        {\n          \"internalType\": \"uint256\",\n          \"name\": \"b\",\n          \"type\": \"uint256\"\n        }\n      ],\n      \"name\": \"add\",\n      \"outputs\": [\n        {\n          \"internalType\": \"uint256\",\n          \"name\": \"\",\n          \"type\": \"uint256\"\n        }\n      ],\n      \"stateMutability\": \"view\",\n      \"type\": \"function\",\n      \"constant\": true\n    }\n  ]"
+
+    ContractExecutionResult:
+      type: object
+      properties:
+        index:
+          type: integer
+          example: 0
+        type:
+          type: string
+          enum:
+            - uint8
+            - uint16
+            - uint32
+            - uint64
+            - uint128
+            - uint256
+            - address
+            - bool
+            - bytes
+            - string
+        value:
+          type: string
+          example: "5"
+
+    Event:
+      type: object
+      properties:
+        address:
+          type: string
+          example: "0x2c0ffec0badd24f7986fe22b668775993e115c24"
+        blockNumber:
+          type: integer
+          example: 3
+        name:
+          type: string
+          example: TransferEvent
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+
+    WebhookInput:
+      type: object
+      properties:
+        url:
+          type: string
+        blockchain:
+          type: string
+
+    TransactionHash:
+      type: object
+      properties:
+        hash:
+          type: string
+          example: "0xd77f4f078cd073ec24a13c403aaf319fa392eb4bb3abb52f8a989986291b8ab7"
+
+    Log:
+      type: object
+      properties:
+        removed:
+          type: boolean
+          nullable: true
+        logIndex:
+          type: string
+          nullable: true
+        transactionIndex:
+          type: string
+          nullable: true
+        transactionHash:
+          type: string
+          nullable: true
+        blockHash:
+          type: string
+          nullable: true
+        blockNumber:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+        data:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        topics:
+          type: array
+          items:
+            type: string
+          nullable: true
+
+    Transaction:
+      type: object
+      properties:
+        transactionHash:
+          type: string
+          nullable: true
+        transactionIndex:
+          type: string
+          nullable: true
+        blockHash:
+          type: string
+          nullable: true
+        blockNumber:
+          type: string
+          nullable: true
+        cumulativeGasUsed:
+          type: string
+          nullable: true
+        gasUsed:
+          type: string
+          nullable: true
+        contractAddress:
+          type: string
+          nullable: true
+        root:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        from:
+          type: string
+          nullable: true
+        to:
+          type: string
+          nullable: true
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Log'
+          nullable: true
+        logsBloom:
+          type: string
+          nullable: true
+        revertReason:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        effectiveGasPrice:
+          type: string
+          nullable: true
+
+    WebhookListener:
+      type: object
+      properties:
+        webhookListenerId:
+          type: string
+        userId:
+          type: string
+        blockchain:
+          type: string
+        contractAddress:
+          type: string
+        eventName:
+          type: string
+        url:
+          type: string
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 403
+        message:
+          type: string
+          example: Forbidden
+
+    Deployment:
+      type: object
+      properties:
+        projectId:
+          type: string
+        name:
+          type: string
+        blockchain:
+          type: string
+        address:
+          type: string
+        abi:
+          type: object
+        userId:
+          type: string
+
+    Block:
+      type: object
+      properties:
+        number:
+          type: string
+        hash:
+          type: string
+        parentHash:
+          type: string
+        nonce:
+          type: string
+        sha3Uncles:
+          type: string
+        logsBloom:
+          type: string
+        transactionsRoot:
+          type: string
+        stateRoot:
+          type: string
+        receiptsRoot:
+          type: string
+        author:
+          type: string
+        miner:
+          type: string
+        mixHash:
+          type: string
+        difficulty:
+          type: string
+        totalDifficulty:
+          type: string
+        extraData:
+          type: string
+        size:
+          type: string
+        gasLimit:
+          type: string
+        gasUsed:
+          type: string
+        timestamp:
+          type: string
+        uncles:
+          type: array
+          items:
+            type: string
+        sealFields:
+          type: array
+          items:
+            type: string
+        baseFeePerGas:
+          type: string
+
+    ProjectLogs:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "553dd981-f4c5-4868-aaa4-54c270f5a284"
+        projectId:
+          type: string
+          example: "eff25dc7-2115-4285-bce0-47aa30e647e3"
+        method:
+          type: string
+          example: "migrate"
+        timestamp:
+          type: string
+          example: "1720006719"
+        log:
+          type: string
+          example: "An error message"

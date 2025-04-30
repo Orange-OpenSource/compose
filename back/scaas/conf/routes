@@ -1,0 +1,100 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+# ITN VCS
+GET             /api/v4/:network/dids                                                                                            decentralized_id.controller.IdentityController.getDids(network: String)
+GET             /api/v4/:network/requestToken                                                                                    decentralized_id.controller.IdentityController.requestToken(network: String)
+GET             /api/v4/:network/dids/:id                                                                                        decentralized_id.controller.IdentityController.getDid(network: String, id: String)
+POST            /api/v4/:network/dids                                                                                            decentralized_id.controller.IdentityController.createDid(network: String)
+PUT             /api/v4/:network/dids                                                                                            decentralized_id.controller.IdentityController.updateDid(network: String)
+DELETE          /api/v4/:network/dids/:id                                                                                        decentralized_id.controller.IdentityController.revokeDid(network: String, id: String)
+POST            /api/v4/:network/vcs                                                                                            decentralized_id.controller.IdentityController.createVC(network: String)
+POST            /api/v4/:network/vcs/verify                                                                                     decentralized_id.controller.IdentityController.verifyVC(network: String)
+GET             /api/v4/:network/vcs                                                                                            decentralized_id.controller.IdentityController.getVcs(network: String)
+
+# DEPLOYEMENT
+POST          /api/v3/users/:userid/deployments                                                                                  smart_contracts.controllers.DeploymentController.createContracts(userid : String)
+GET           /api/v3/users/:userid/deployments                                                                                  smart_contracts.controllers.DeploymentController.getForUser(userid : String)
+GET           /api/v3/users/:userid/deployments/ongoing                                                                          smart_contracts.controllers.DeploymentController.getOngoingDeploymentsForUser(userid : String)
+GET           /api/v3/users/:userid/deployments/:deploymentId                                                                    smart_contracts.controllers.DeploymentController.getDeployment(userid : String, deploymentId: String)
+
+
+# COMPANIES
+POST          /api/v3/companies                                                                                                  companies.controllers.CompanyController.create()
+GET           /api/v3/companies                                                                                                  companies.controllers.CompanyController.getAll()
+PUT           /api/v3/companies/:id                                                                                              companies.controllers.CompanyController.update(id: String)
+GET           /api/v3/companies/:id                                                                                              companies.controllers.CompanyController.getOne(id: String)
+DELETE        /api/v3/companies/:id                                                                                              companies.controllers.CompanyController.delete(id: String)
+GET           /api/v3/companies/:id/users                                                                                        companies.controllers.CompanyController.getUsers(id: String)
+
+# USERS
+POST          /api/v3/users                                                                                                      users.controllers.UserController.create()
+GET           /api/v3/users                                                                                                      users.controllers.UserController.getAll()
+PUT           /api/v3/users/:id                                                                                                  users.controllers.UserController.update(id: String)
+GET           /api/v3/users/:id                                                                                                  users.controllers.UserController.getOne(id: String)
+DELETE        /api/v3/users/:id                                                                                                  users.controllers.UserController.delete(id: String)
+
+# CREDENTIALS
+PUT           /api/v3/users/:userid/credentials                                                                                   credentials.controllers.CredentialController.update(userid:String)
+
+# APPLICATION
+POST          /api/v3/users/:userid/applications                                                                                 applications.controllers.ApplicationsController.create(userid: String)
+GET           /api/v3/users/:userid/applications                                                                                 applications.controllers.ApplicationsController.getAllUserApplications(userid:String)
+GET           /api/v3/users/:userid/applications/:id                                                                             applications.controllers.ApplicationsController.getApplicationById(userid:String,id: String)
+DELETE        /api/v3/users/:userid/applications/:id                                                                             applications.controllers.ApplicationsController.delete(userid: String,id: String)
+
+# WALLETS
+POST          /api/v3/users/:userid/wallets                                                                                      wallets.controllers.WalletController.createWallet(userid:String)
+GET           /api/v3/users/:userid/wallets                                                                                      wallets.controllers.WalletController.getWalletsByUserId(userid:String)
+GET           /api/v3/users/:userid/blockchains/:blockchain/wallets/:walletAddress                                               wallets.controllers.WalletController.getWallet(userid: String,blockchain:String,walletAddress: String)
+GET           /api/v3/users/:userid/blockchains/:blockchain/wallets/:walletAddress/export                                        wallets.controllers.WalletController.exportWallet(userid: String,blockchain:String,walletAddress: String)
+DELETE        /api/v3/users/:userid/blockchains/:blockchain/wallets/:walletAddress                                               wallets.controllers.WalletController.deleteWallet(userid:String,blockchain:String,walletAddress: String)
+GET           /api/v3/users/:userid/blockchains/:blockchain/wallets/:walletAddress/balance                                       wallets.controllers.WalletController.getBalance(userid:String,blockchain: String, walletAddress: String)
+POST          /api/v3/users/:userid/wallets/import                                                                               wallets.controllers.WalletController.importWallet(userid:String)
+
+# LOG
+GET          /api/v3/users/:userid/logs/project/:projectId                                                                      smart_contracts.controllers.LogController.getLogByProjectId(userid:String, projectId: String)
+GET          /api/v3/users/:userid/logs/project/:projectId/method/:method                                                       smart_contracts.controllers.LogController.getLogByProjectIdAndMethod(userid:String, projectId: String, method: String)
+GET          /api/v3/users/:userid/logs/date/:timestamp                                                                         smart_contracts.controllers.LogController.getLogByTimestamp(userid:String, timestamp: String)
+GET          /api/v3/users/:userid/logs/date/:since/:until                                                                      smart_contracts.controllers.LogController.getLogByDate(userid:String, since: String, until: String)
+
+#blockchain instances
+GET           /api/v3/blockchains                                                                                                smart_contracts.controllers.AbiController.getActiveBlockchains()
+GET           /api/v3/blockchains/:blockchain                                                                                    smart_contracts.controllers.AbiController.getBlockchain(blockchain : String)
+
+#Blocks
+GET           /api/v3/blockchains/:blockchain/blocknumber                                                            smart_contracts.controllers.SmartContractController.getBlockNumber(blockchain: String)
+GET           /api/v3/blockchains/:blockchain/blocks/:number                                                         smart_contracts.controllers.SmartContractController.getBlockByNumber(blockchain: String, number: String)
+GET           /api/v3/blockchains/:blockchain/blocks/find/:hash                                                      smart_contracts.controllers.SmartContractController.getBlockByHash(blockchain: String, hash: String)
+
+# Transactions
+GET           /api/v3/blockchains/:blockchainName/transactions/:hash                                                 smart_contracts.controllers.SmartContractController.transactionReceipt(blockchainName: String, hash: String)
+
+# CONTRACTS
+GET           /api/v3/users/:userid/contracts                                                                                    smart_contracts.controllers.AbiController.retrieveAbis(userid:String)
+#GET           /api/v3/user/blockchains/:blockchainName/contracts                                                                 smart_contracts.controllers.AbiController.retrieveAbisForBlockchain( blockchainName: String)
+POST          /api/v3/users/:userid/contracts/:contractAddress                                                                   smart_contracts.controllers.AbiController.createAbi( userid: String, contractAddress: String)
+GET           /api/v3/users/:userid/contracts/:contractAddress                                                                   smart_contracts.controllers.AbiController.retrieve( userid: String, contractAddress: String)
+DELETE        /api/v3/users/:userid/blockchains/:blockchainName/contracts/:contractAddress                                       smart_contracts.controllers.AbiController.deleteAbi(userid: String, blockchainName: String, contractAddress: String)
+#DELETE        /api/v3/users/:userid/contracts/:id                                                                                smart_contracts.controllers.AbiController.deleteById(userid: String, id: String)
+PUT           /api/v3/blockchains/:blockchainName/contracts/:contractAddress/functions/:functionName/read                        smart_contracts.controllers.SmartContractController.pureOrViewFunction(blockchainName: String, contractAddress: String, functionName: String)
+POST          /api/v3/blockchains/:blockchainName/contracts/:contractAddress/functions/:functionName/eval                        smart_contracts.controllers.SmartContractController.asyncFunction(blockchainName: String, contractAddress: String, functionName: String)
+GET           /api/v3/blockchains/:blockchain/contracts/:address/bytecode                                                        smart_contracts.controllers.SmartContractController.getCodeAt(blockchain: String, address: String)
+
+#Events
+GET           /api/v3/blockchains/:blockchain/contracts/:contractAddress/events                                      smart_contracts.controllers.EventController.getEvents(blockchain: String, contractAddress: String, blockNumber: String= "0")
+GET           /api/v3/blockchains/:blockchain/contracts/:contractAddress/events/since/:blockNumber                   smart_contracts.controllers.EventController.getEvents(blockchain: String, contractAddress: String, blockNumber: String)
+GET           /api/v3/blockchains/:blockchain/contracts/:contractAddress/events/:eventName                           smart_contracts.controllers.EventController.getEventsByName(blockchain: String, contractAddress: String, eventName: String, blockNumber: String= "0")
+GET           /api/v3/blockchains/:blockchain/contracts/:contractAddress/events/:eventName/since/:blockNumber        smart_contracts.controllers.EventController.getEventsByName(blockchain: String, contractAddress: String, eventName: String, blockNumber: String)
+
+#Event Listener
+POST          /api/v3/users/:userid/contracts/:contractAddress/events/:eventName/webhooks                                        smart_contracts.controllers.EventListenerController.createWebhook(userid: String, contractAddress: String, eventName: String)
+GET           /api/v3/users/:userid/contracts/:contractAddress/events/:eventName/webhooks                                        smart_contracts.controllers.EventListenerController.getAllWebhook(userid: String, contractAddress: String, eventName: String)
+GET           /api/v3/users/:userid/contracts/:contractAddress/events/:eventName/webhooks/:webhook                               smart_contracts.controllers.EventListenerController.getWebhook(userid: String, contractAddress: String, eventName: String, webhook: String)
+DELETE        /api/v3/users/:userid/contracts/:contractAddress/events/:eventName/webhooks/:webhook                               smart_contracts.controllers.EventListenerController.deleteWebHook(userid: String, contractAddress: String, eventName: String, webhook: String)
+
+#LOGIN
+PUT           /api/v3/login                                                                                                      login.controllers.LoginController.login()
+
+# HEALTH
+GET           /api/v3/status                                                                                                     common.controllers.HealthController.status

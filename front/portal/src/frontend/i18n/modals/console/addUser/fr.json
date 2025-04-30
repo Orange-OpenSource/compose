@@ -1,0 +1,17 @@
+{
+  "modals": {
+    "console": {
+      "addUser": {
+        "title": "Ajouter un utilisateur",
+        "form": {
+          "email": "E-mail",
+          "invalidEmail": "L'e-mail renseigné est invalide",
+          "password": "Mot de passe",
+          "invalidPassword": "Le mot de passe est invalide : il doit contenir au moins huit caractères, dont une majuscule, une minuscule, un chiffre et un caractère spécial",
+          "submit": "Ajouter",
+          "cancel": "Annuler"
+        }
+      }
+    }
+  }
+}

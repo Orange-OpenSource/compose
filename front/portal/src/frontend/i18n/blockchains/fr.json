@@ -1,0 +1,12 @@
+{
+  "blockchains": {
+    "abfTestnet": "abf testnet",
+    "alastria": "alastria",
+    "arbitrum": "arbitrum",
+    "local": "locale"
+  },
+  "blockchainsTypes": {
+    "ethereum": "ethereum",
+    "ethereumlegacy": "ethereum legacy"
+  }
+}

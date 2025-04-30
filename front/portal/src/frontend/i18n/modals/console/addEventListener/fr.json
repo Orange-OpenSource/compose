@@ -1,0 +1,15 @@
+{
+  "modals": {
+    "console": {
+      "addEventListener": {
+        "title": "Ajouter un listener",
+        "form": {
+          "url": "URL",
+          "invalidUrl": "L'URL est invalide",
+          "submit": "Ajouter",
+          "cancel": "Annuler"
+        }
+      }
+    }
+  }
+}

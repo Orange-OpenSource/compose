@@ -1,0 +1,11 @@
+{
+  "modals": {
+    "console": {
+      "displayDeployment": {
+        "title": "Informations du déploiement",
+        "addContract": "Ajouter le contrat",
+        "close": "Fermer"
+      }
+    }
+  }
+}

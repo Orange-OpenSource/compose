@@ -1,0 +1,10 @@
+{
+  "modals": {
+    "console": {
+      "displayDeploymentInfo": {
+        "title": "Guide de déploiement",
+        "ok": "Fermer"
+      }
+    }
+  }
+}

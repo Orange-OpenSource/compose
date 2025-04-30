@@ -1,0 +1,28 @@
+/*
+ *
+ *  * Software Name : Compose
+ *  * SPDX-FileCopyrightText: Copyright (c) Orange SA
+ *  * SPDX-License-Identifier:  MIT
+ *  *
+ *  * This software is distributed under the MIT License,
+ *  * see the "LICENSE.txt" file for more details or https://spdx.org/licenses/MIT.html
+ *  *
+ *  * <Authors: optional: authors list / see CONTRIBUTORS>
+ *
+ */
+
+package common.utils
+
+class Hex {
+    def toHexString(bytes: Seq[Byte]): String = {
+        val sb = new StringBuilder
+        for (b <- bytes) {
+            sb.append(String.format("%02x", Byte.box(b)))
+        }
+        sb.toString
+    }
+}
+
+object Hex {
+    def apply(): Hex = new Hex()
+}

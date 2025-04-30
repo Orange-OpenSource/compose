@@ -1,0 +1,28 @@
+{
+  "navbars": {
+    "console": {
+      "title": "SCaaS",
+      "tabs": {
+        "contracts": "Mes contrats",
+        "deployments": "Mes déploiements",
+        "applications": "Mes applications",
+        "projects": "Mes projets",
+        "wallets": "Mes portefeuilles",
+        "blockchains": "Blockchains",
+        "blocks": "Blocs",
+        "transactions": "Transactions",
+        "account": "Mon compte",
+        "ide": "IDE"
+      },
+      "langs": {
+        "en": "EN",
+        "fr": "FR"
+      },
+      "dropdown": {
+        "profile": "Profil",
+        "company": "Entreprise",
+        "signOut": "Déconnexion"
+      }
+    }
+  }
+}

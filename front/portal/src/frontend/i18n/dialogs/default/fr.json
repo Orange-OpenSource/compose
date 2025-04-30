@@ -1,0 +1,16 @@
+{
+  "dialogs": {
+    "default": {
+      "title": {
+        "error": "Erreur",
+        "success": "Succès",
+        "confirmation": "Confirmation"
+      },
+      "form": {
+        "confirm": "Confirmer",
+        "cancel": "Annuler",
+        "ok": "Ok"
+      }
+    }
+  }
+}

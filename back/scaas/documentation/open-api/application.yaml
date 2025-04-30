@@ -1,0 +1,765 @@
+openapi: 3.0.0
+info:
+  title: Compose API
+  description: The new version of the Smartchain APIs
+  version: 3.1.0
+
+servers:
+  - url: https://backend.compose.liveidentity.com/api/v3
+  - url: http://localhost:9000/api/v3
+tags:
+  - name: Blocks
+    description: Blocks operation to visualize the state of a given blockchain
+  - name: Transactions
+    description: Blockchain transactions
+  - name: Events
+    description: Events occurring on Smart Contracts
+  - name: Contracts
+    description: Contracts can either be deployed via the Smartchain platform by providing a ZIP file containing the sources of the contract. They can also be imported on the platform by providing the ABI of an already deployed contract.
+paths:
+
+  /blockchains/{blockchain}/blocknumber:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: return the last block number
+      tags: [ Blocks ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+      responses:
+        '200':
+          description: The blocknumber is returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  block:
+                    type: string
+                    example: "42"
+  /blockchains/{blockchain}/blocks/{number}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: return the block number {number}
+      tags: [ Blocks ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: number
+          required: true
+          schema:
+            type: string
+          description: The block number
+      responses:
+        '200':
+          description: The block information is returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Block'
+
+  /blockchains/{blockchain}/blocks/find/{hash}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: find a block by its hash
+      tags: [ Blocks ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+          description: The hash of the block
+      responses:
+        '200':
+          description: The block information is returned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Block'
+  /blockchains/{blockchain}/transactions/{hash}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Read the result of a receipt on the blockchain
+      tags: [ Transactions ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+            description: id of transaction
+      responses:
+        '200':
+          description: Function executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
+  /blockchains/{blockchain}/contracts/{address}/events:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get all events that where dispatched on a contract
+      tags: [ Events ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /blockchains/{blockchain}/contracts/{address}/events/since/{blockNumber}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get all events that where dispatched on a contract
+      tags: [ Events ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: blockNumber
+          required: true
+          schema:
+            type: string
+            description: Block number of the last event
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '404':
+          description: Contract not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/events/{eventName}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get all events that where dispatched on a contract for a given event type
+      tags: [ Events ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: eventName
+          required: true
+          schema:
+            type: string
+            description: name of the event
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/events/{eventName}/since/{blockNumber}:
+    get:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Get all events that where dispatched on a contract for a given event type since blockNumber
+      tags: [ Events ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: eventName
+          required: true
+          schema:
+            type: string
+            description: name of the event
+        - in: path
+          name: blockNumber
+          required: true
+          schema:
+            type: string
+            description: Block number of the last event
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '404':
+          description: Event not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/functions/{functionName}/eval:
+    post:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Execute a function on a smart contract (execution is only allowed to applications)
+      tags: [ Contracts ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: functionName
+          required: true
+          schema:
+            type: string
+            description: name of the function
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FunctionParameters'
+      responses:
+        '200':
+          description: Function executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionHash'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /blockchains/{blockchain}/contracts/{address}/functions/{functionName}/read:
+    put:
+      security:
+        - CLIENT_ID: [ ]
+          API_KEY: [ ]
+      summary: Execute a pure/view function on a smart contract (execution is only allowed to applications)
+      tags: [ Contracts ]
+      parameters:
+        - in: path
+          name: blockchain
+          required: true
+          schema:
+            type: string
+          description: Blockchain name
+        - in: path
+          name: address
+          required: true
+          schema:
+            type: string
+            description: Address of the contract
+        - in: path
+          name: functionName
+          required: true
+          schema:
+            type: string
+            description: name of the function
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReadFunctionParameters'
+      responses:
+        '200':
+          description: Function executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContractExecutionResult'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Function not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    API_KEY: # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: api-key  # name of the header, query parameter or cookie
+    CLIENT_ID: # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: client-id  # name of the header, query parameter or cookie
+
+  schemas:
+    Status:
+      type: object
+      properties:
+        name:
+          type: string
+        status:
+          type: string
+        version:
+          type: string
+      required:
+        - name
+        - status
+        - version
+
+    TransactionOptions:
+      type: object
+      properties:
+        gasLimit:
+          type: string
+          example: "4042055464"
+        gasPremium:
+          type: string
+          example: "2500000000"
+        feeCap:
+          type: string
+          example: "4042055464"
+      required:
+        - gasLimit
+        - gasPremium
+        - feeCap
+
+    Parameter:
+      type: object
+      properties:
+        name:
+          type: string
+          example: my_variable_name
+        type:
+          type: string
+          enum:
+            - uint8
+            - uint16
+            - uint32
+            - uint64
+            - uint128
+            - uint256
+            - address
+            - bool
+            - bytes
+            - string
+        value:
+          type: string
+          example: "42"
+
+    FunctionParameters:
+      type: object
+      properties:
+        options:
+          $ref: '#/components/schemas/TransactionOptions'
+        walletPassword:
+          type: string
+          example: kdmjflqskHYUguyEF65jzqh
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+      required:
+        - parameters
+        - wallet
+
+    ReadFunctionParameters:
+      type: object
+      properties:
+        wallet:
+          type: object
+          properties:
+            address:
+              type: string
+              example: "0xa5fA00103228bf74F7A28aD21736d2856eD10675"
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+      required:
+        - parameters
+
+    Web3Client:
+      type: object
+      properties:
+        version:
+          type: string
+          example: Ganache/v7.9.1/EthereumJS TestRPC/v7.9.1/ethereum-js
+        url:
+          type: string
+          example: http://127.0.0.1:8545
+        chainId:
+          type: string
+          example: "1337"
+
+    Blockchain:
+      type: object
+      properties:
+        name:
+          type: string
+          example: abfTestnet
+        type:
+          type: string
+          enum: [ ethereum ]
+        web3Client:
+          $ref: '#/components/schemas/Web3Client'
+        chainID:
+          type: string
+          example: "1337"
+        blockNumber:
+          type: string
+          example: "42"
+        gasPrice:
+          type: string
+          example: "2000000000"
+        protocol:
+          type: string
+          example: "0x3f"
+
+    Contract:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: c804c53a-7dec-4993-b472-267c008a60ca
+        name:
+          type: string
+          example: Store contract
+        address:
+          type: string
+          example: "0xa5fA00103228bf74F7A28aD21736d2856eD10675"
+        blockchain:
+          type: string
+          example: abfTestnet
+        abi:
+          type: string
+          example: "[\n    {\n      \"inputs\": [],\n      \"stateMutability\": \"nonpayable\",\n      \"type\": \"constructor\"\n    },\n    {\n      \"inputs\": [\n        {\n          \"internalType\": \"uint256\",\n          \"name\": \"a\",\n          \"type\": \"uint256\"\n        }\n      ],\n      \"name\": \"set\",\n      \"outputs\": [],\n      \"stateMutability\": \"nonpayable\",\n      \"type\": \"function\"\n    },\n    {\n      \"inputs\": [\n        {\n          \"internalType\": \"uint256\",\n          \"name\": \"b\",\n          \"type\": \"uint256\"\n        }\n      ],\n      \"name\": \"add\",\n      \"outputs\": [\n        {\n          \"internalType\": \"uint256\",\n          \"name\": \"\",\n          \"type\": \"uint256\"\n        }\n      ],\n      \"stateMutability\": \"view\",\n      \"type\": \"function\",\n      \"constant\": true\n    }\n  ]"
+
+    ContractExecutionResult:
+      type: object
+      properties:
+        index:
+          type: integer
+          example: 0
+        type:
+          type: string
+          enum:
+            - uint8
+            - uint16
+            - uint32
+            - uint64
+            - uint128
+            - uint256
+            - address
+            - bool
+            - bytes
+            - string
+        value:
+          type: string
+          example: "5"
+    Event:
+      type: object
+      properties:
+        address:
+          type: string
+          example: "0x2c0ffec0badd24f7986fe22b668775993e115c24"
+        blockNumber:
+          type: integer
+          example: 3
+        name:
+          type: string
+          example: TransferEvent
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Parameter'
+
+
+
+    Log:
+      type: object
+      properties:
+        removed:
+          type: boolean
+          nullable: true
+        logIndex:
+          type: string
+          nullable: true
+        transactionIndex:
+          type: string
+          nullable: true
+        transactionHash:
+          type: string
+          nullable: true
+        blockHash:
+          type: string
+          nullable: true
+        blockNumber:
+          type: string
+          nullable: true
+        address:
+          type: string
+          nullable: true
+        data:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        topics:
+          type: array
+          items:
+            type: string
+          nullable: true
+
+    Transaction:
+      type: object
+      properties:
+        transactionHash:
+          type: string
+          nullable: true
+        transactionIndex:
+          type: string
+          nullable: true
+        blockHash:
+          type: string
+          nullable: true
+        blockNumber:
+          type: string
+          nullable: true
+        cumulativeGasUsed:
+          type: string
+          nullable: true
+        gasUsed:
+          type: string
+          nullable: true
+        contractAddress:
+          type: string
+          nullable: true
+        root:
+          type: string
+          nullable: true
+        status:
+          type: string
+          nullable: true
+        from:
+          type: string
+          nullable: true
+        to:
+          type: string
+          nullable: true
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Log'
+          nullable: true
+        logsBloom:
+          type: string
+          nullable: true
+        revertReason:
+          type: string
+          nullable: true
+        type:
+          type: string
+          nullable: true
+        effectiveGasPrice:
+          type: string
+          nullable: true
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 403
+        message:
+          type: string
+          example: Forbidden
+
+    TransactionHash:
+      type: object
+      properties:
+        hash:
+          type: string
+          example: "0xd77f4f078cd073ec24a13c403aaf319fa392eb4bb3abb52f8a989986291b8ab7"
+
+    Block:
+      type: object
+      properties:
+        number:
+          type: string
+        hash:
+          type: string
+        parentHash:
+          type: string
+        nonce:
+          type: string
+        sha3Uncles:
+          type: string
+        logsBloom:
+          type: string
+        transactionsRoot:
+          type: string
+        stateRoot:
+          type: string
+        receiptsRoot:
+          type: string
+        author:
+          type: string
+        miner:
+          type: string
+        mixHash:
+          type: string
+        difficulty:
+          type: string
+        totalDifficulty:
+          type: string
+        extraData:
+          type: string
+        size:
+          type: string
+        gasLimit:
+          type: string
+        gasUsed:
+          type: string
+        timestamp:
+          type: string
+        uncles:
+          type: array
+          items:
+            type: string
+        sealFields:
+          type: array
+          items:
+            type: string
+        baseFeePerGas:
+          type: string

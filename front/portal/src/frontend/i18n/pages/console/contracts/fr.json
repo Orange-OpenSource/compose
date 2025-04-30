@@ -1,0 +1,31 @@
+{
+  "pages": {
+    "console": {
+      "contracts": {
+        "meta": {
+          "title": "Mes contrats | SCaaS"
+        },
+        "breadcrumb": "Mes contrats",
+        "title": "Contrats ({count})",
+        "search": {
+          "title": "Chercher un contrat",
+          "placeholder": "Nom du contrat",
+          "clear": "Effacer"
+        },
+        "table": {
+          "name": "nom",
+          "id": "ID",
+          "address": "adresse",
+          "blockchain": "blockchain",
+          "actions": "actions"
+        },
+        "displayContract": "Afficher le contrat",
+        "exportContract": "Exporter le contrat",
+        "deleteContract": "Supprimer le contrat",
+        "deleteContractConfirmation": "Vous êtes sur le point de supprimer ce contrat, souhaitez-vous continuer ?",
+        "deleteContractSuccess": "Le contrat a bien été supprimé",
+        "uploadContract": "Charger un contrat"
+      }
+    }
+  }
+}

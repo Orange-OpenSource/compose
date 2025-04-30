@@ -1,0 +1,20 @@
+{
+  "modals": {
+    "console": {
+      "addContractByAbi": {
+        "title": "Ajouter un contrat par ABI",
+        "form": {
+          "name": "Nom de l'ABI",
+          "invalidName": "Ce champ ne peut pas être vide",
+          "address": "Adresse du contrat",
+          "addressPlaceholder": "Ex: 0x0000",
+          "invalidAddress": "Ce champ ne peut pas être vide et doit commencer par 0x",
+          "blockchain": "Blockchain",
+          "abi": "ABI",
+          "submit": "Ajouter le contrat",
+          "cancel": "Annuler"
+        }
+      }
+    }
+  }
+}

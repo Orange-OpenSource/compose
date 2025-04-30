@@ -1,0 +1,23 @@
+{
+  "modals": {
+    "console": {
+      "displayWallet": {
+        "title": "Informations du portefeuille",
+        "address": "<b>Addresse :</b> {address}",
+        "version": "<b>Version :</b> {version}",
+        "crypto": {
+          "title": "<b>Cryptographie</b>",
+          "cipher": "<strong>Cipher</strong>: {cipher}",
+          "ciphertext": "<strong>Ciphertext</strong>: {ciphertext}",
+          "cipherparams": {
+            "iv": "<strong>IV</strong>: {iv}"
+          },
+          "kdf": "<strong>KDF</strong>: {kdf}",
+          "kdfparams": "<strong>Parmètres KDF</strong>: {kdfparams}",
+          "mac": "<strong>MAC</strong>: {mac}"
+        },
+        "close": "Fermer"
+      }
+    }
+  }
+}

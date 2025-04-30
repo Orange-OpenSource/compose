@@ -1,0 +1,122 @@
+{
+  "name": "SCaaS",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/backend/index.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test": "vue-cli-service test:unit --env=jsdom --coverage --u --silent --runInBand",
+    "lint": "vue-cli-service lint ./src/**/*.js",
+    "lint-fix": "vue-cli-service lint --fix ./src/**/*.js"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.2",
+    "ace-builds": "^1.32.1",
+    "axios": "^1.5.0",
+    "body-parser": "^1.20.2",
+    "boosted": "^5.3.2",
+    "bootstrap-vue-next": "^0.14.10",
+    "config": "^3.3.9",
+    "cookie-parser": "^1.4.6",
+    "core-js": "^3.32.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.2.1",
+    "express-session": "^1.17.3",
+    "form-data": "^4.0.0",
+    "multer": "^1.4.5-lts.1",
+    "particles.js": "2.0.0",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "vue": "^3.3.4",
+    "vuex": "^4.1.0",
+    "vue-axios": "^3.5.2",
+    "vue-i18n": "^9.3.0",
+    "vue-router": "^4.2.4",
+    "vue3-ace-editor": "^2.2.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.15",
+    "@babel/eslint-parser": "^7.22.15",
+    "@vue/cli-plugin-babel": "~5.0.8",
+    "@vue/cli-plugin-eslint": "~5.0.8",
+    "@vue/cli-plugin-router": "~5.0.8",
+    "@vue/cli-plugin-unit-jest": "~5.0.8",
+    "@vue/cli-service": "~5.0.8",
+    "@vue/compiler-sfc": "^3.3.4",
+    "@vue/eslint-config-airbnb": "^6.0.0",
+    "@vue/test-utils": "^2.0.0-0",
+    "@vue/vue3-jest": "^27.0.0-alpha.4",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^27.0.6",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-vue": "^8.7.1",
+    "eslint-plugin-vuejs-accessibility": "^1.2.0",
+    "jest": "^27.0.6",
+    "jest-sonar-reporter": "^2.0.0",
+    "jsdom": "^22.1.0",
+    "supertest": "^6.3.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/no-v-model-argument": "off"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "@vue/vue3-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "axios": "axios/dist/node/axios.cjs"
+    },
+    "collectCoverage": true,
+    "coverageDirectory": "reports",
+    "coverageReporters": [
+      "lcov",
+      "text",
+      "text-summary",
+      "json",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "**/src/backend/routes/**/*.{js,vue}",
+      "!**/node_modules/**",
+      "!**/src/frontend/**"
+    ],
+    "testResultsProcessor": "jest-sonar-reporter",
+    "testMatch": [
+      "**/tests/**/*.spec.js"
+    ]
+  },
+  "jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "node-test.sonar.xml",
+    "indent": 4
+  }
+}

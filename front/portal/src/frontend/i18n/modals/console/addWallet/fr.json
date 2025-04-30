@@ -1,0 +1,18 @@
+{
+  "modals": {
+    "console": {
+      "addWallet": {
+        "title": "Créer un portefeuille",
+        "form": {
+          "blockchain": "Blockchain",
+          "name": "Nom",
+          "invalidName": "Le nom est invalide",
+          "password": "Mot de passe",
+          "invalidPassword": "Le mot de passe est invalide",
+          "submit": "Créer",
+          "cancel": "Annuler"
+        }
+      }
+    }
+  }
+}

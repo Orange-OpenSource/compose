@@ -1,0 +1,38 @@
+{
+  "pages": {
+    "console": {
+      "profile": {
+        "meta": {
+          "title": "Mon profil | SCaaS"
+        },
+        "breadcrumb": "Mon profil",
+        "title": "Profil",
+        "passwordChangeTitle": "Changement de mot de passe",
+        "form": {
+          "name": "Prénom",
+          "invalidName": "Ce champ ne peut pas être vide",
+          "familyName": "Nom",
+          "invalidFamilyName": "Ce champ ne peut pas être vide",
+          "email": "E-mail",
+          "invalidEmail": "Ce champ doit être une adresse e-mail valide",
+          "telephone": "Téléphone",
+          "invalidTelephone": "Ce champ doit être un numéro de téléphone valide",
+          "newPassword": "Nouveau mot de passe",
+          "newPasswordHelp": "Le mot de passe doit contenir au moins 8 caractères, 1 minuscule, 1 majuscule, 1 chiffre et un caractère spécial",
+          "invalidNewPassword": "Ce champ ne peut pas être vide et doit respecter les règles ci-dessus",
+          "newPasswordConfirmation": "Confirmer le nouveau mot de passe",
+          "invalidNewPasswordConfirmation": "Le nouveau mot de passe et sa confirmation doivent être identiques",
+          "submit": "Enregistrer",
+          "updateUserSuccess": "Les modifications ont bien été enregistrées.",
+          "submitNewPassword": "Modifier le mot de passe",
+          "newPasswordSuccess": "Votre mot de passe a bien été modifié."
+        },
+        "userRoles": {
+          "user": "utilisateur",
+          "admin": "administrateur",
+          "root": "super utilisateur"
+        }
+      }
+    }
+  }
+}

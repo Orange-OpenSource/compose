@@ -1,0 +1,10 @@
+{
+  "navbars": {
+    "home": {
+      "title": "SCaaS",
+      "tabs": {
+        "signIn": "Se connecter"
+      }
+    }
+  }
+}

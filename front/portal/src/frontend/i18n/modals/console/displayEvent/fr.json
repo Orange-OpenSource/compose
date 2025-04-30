@@ -1,0 +1,10 @@
+{
+  "modals": {
+    "console": {
+      "displayEvent": {
+        "title": "Informations sur l'événement",
+        "close": "Fermer"
+      }
+    }
+  }
+}

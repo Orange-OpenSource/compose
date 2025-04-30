@@ -1,0 +1,93 @@
+include:
+  # Scala/SBT template
+  - project: "to-be-continuous/sbt"
+    ref: "1.5.0"
+    file: "templates/gitlab-ci-sbt.yml"
+  # SonarQube template
+  - project: "to-be-continuous/sonar"
+    ref: "3.3"
+    file: "templates/gitlab-ci-sonar.yml"
+
+# variables
+variables:
+  SBT_IMAGE: "dockerproxy.repos.tech.orange/sbtscala/scala-sbt:eclipse-temurin-focal-17.0.10_7_1.9.9_3.4.0"
+  #SONAR_BASE_ARGS: "-Dsonar.java.binaries=project/target"
+  SONAR_HOST_URL: "https://sqaas.dos.tech.orange"
+  SBT_BUILD_ARGS: package
+  SBT_SBOM_DISABLED: "true"
+
+docker_build:
+  image: $SBT_IMAGE
+  tags:
+    - docker
+  stage: package-build
+  script:
+    - apt update && apt install unzip -y
+    - sbt dist
+    - mkdir -p dock
+    - pwd
+    - unzip /builds/smartchain/compose/v3/backend/scaas/target/universal/scaas-3.1.0.zip
+    - ls -a /builds/smartchain/compose/v3/backend/scaas/target/universal/
+    - ls -a .
+    - cp -r scaas-3.1.0 dock/scaas-3.1.0
+    - cp Dockerfile dock/Dockerfile
+    - ls -a dock/
+  artifacts:
+    paths:
+      - "dock"
+    untracked: false
+    expire_in: 2 days
+
+image-docker:
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  image: dockerproxy.repos.tech.orange/docker:25-dind
+  services:
+    - name: dockerproxy.repos.tech.orange/docker:25-dind
+      alias: docker
+  tags:
+    - graas-dind
+  script:
+    - cd dock
+    - ls -a .
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --rm -t  $CI_REGISTRY_IMAGE:dev .
+    - docker push  $CI_REGISTRY_IMAGE:dev
+  dependencies:
+    - docker_build
+
+publish-qualif:
+  stage: publish  # It only runs when *both* jobs in the test stage complete successfully.
+  image: dockerproxy.repos.tech.orange/docker:25-dind
+  services:
+    - name: dockerproxy.repos.tech.orange/docker:25-dind
+      alias: docker
+  tags:
+    - graas-dind
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_QUALIF_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $QUALIF_IPADDRESS >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $CI_REGISTRY_IMAGE:dev
+    - docker save -o scaas.tar $CI_REGISTRY_IMAGE:dev
+    - ls -a .
+    - scp scaas.tar $SSH_QUALIF_USER@$QUALIF_IPADDRESS:images/scaas.tar
+  dependencies:
+    - image-docker
+
+stages:
+  - build
+  - test
+  - package-build
+  - package-test
+  - infra
+  - deploy
+  - acceptance
+  - publish
+  - infra-prod
+  - production
