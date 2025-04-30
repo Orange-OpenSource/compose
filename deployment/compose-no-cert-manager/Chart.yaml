@@ -1,0 +1,12 @@
+apiVersion: v2
+name: compose
+description: Deploys the Compose application.
+type: application
+version: 3.1.0
+appVersion: "3.1.0"
+
+maintainers:
+  - name: Erwann TAUPIN
+    email: erwann.taupin@orange.com
+keywords:
+  - compose

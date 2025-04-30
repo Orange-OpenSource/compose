@@ -1,0 +1,39 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+spec:
+  acme:
+    email: {{ .Values.cluster_issuer.certManagerEmail }}
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-production-private-key
+    solvers:
+    - dns01:
+        route53:
+          region: {{ .Values.cluster_issuer.dns01Solver.region }}
+          role: {{ .Values.cluster_issuer.dns01Solver.roleArn }}
+          auth:
+            kubernetes:
+              serviceAccountRef:
+                name: {{ .Values.cluster_issuer.dns01Solver.serviceAccountName }}
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    email: {{ .Values.cluster_issuer.certManagerEmail }}
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-staging-private-key
+    solvers:
+    - dns01:
+        route53:
+          region: {{ .Values.cluster_issuer.dns01Solver.region }}
+          role: {{ .Values.cluster_issuer.dns01Solver.roleArn }}
+          auth:
+            kubernetes:
+              serviceAccountRef:
+                name: {{ .Values.cluster_issuer.dns01Solver.serviceAccountName }}

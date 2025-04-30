@@ -1,0 +1,41 @@
+namespace: compose
+
+scaas:
+  replicaCount: 1
+  image: <AccountId>.dkr.ecr.eu-west-3.amazonaws.com/compose/backend/scaas:dev
+  baseUrl: backend.compose-orange.com
+  containerPort: 9000
+  secretKey: "<your_secret_key>"
+
+portal:
+  replicaCount: 1
+  image: <AccountId>.dkr.ecr.eu-west-3.amazonaws.com/compose/frontend/portal:dev
+  baseUrl: www.compose-orange.com
+  containerPort: 8080
+  jwtSecret: "<your_secret_key>"
+
+mongo:
+  replicaCount: 1
+  image: mongo:5.0
+  baseUrl: mongo-scaas
+  port: 27017
+
+tls:
+  frontend:
+    crt: |-
+      -----BEGIN CERTIFICATE-----
+      ... your certificate here ...
+      -----END CERTIFICATE-----
+    key: |-
+      -----BEGIN PRIVATE KEY-----
+      ... your private key here ...
+      -----END PRIVATE KEY-----
+  backend:
+    crt: |-
+      -----BEGIN CERTIFICATE-----
+      ... your certificate here ...
+      -----END CERTIFICATE-----
+    key: |-
+      -----BEGIN PRIVATE KEY-----
+      ... your private key here ...
+      -----END PRIVATE KEY-----

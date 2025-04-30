@@ -1,0 +1,7 @@
+cluster_issuer:
+  certManagerEmail: "your.email@orange.com"
+  dns01Solver:
+    region: eu-west-3
+    roleArn: arn:aws:iam::<AccountId>:role/cert-manager-acme-dns01-route53
+    serviceAccountName: cert-manager-acme-dns01-route53
+    serviceAccountNamespace: cert-manager

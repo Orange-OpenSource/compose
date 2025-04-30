@@ -1,0 +1,29 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: frontend-tls-certificate
+  namespace: {{ .Values.namespace }}
+spec:
+  secretName: frontend-tls-secrets
+  duration: {{ .Values.certificates.duration }}
+  renewBefore: {{ .Values.certificates.renewBefore }}
+  issuerRef:
+    kind: ClusterIssuer
+    name: {{ .Values.certificates.issuerName }}
+  dnsNames:
+  - {{ .Values.portal.baseUrl }}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: backend-tls-certificate
+  namespace: {{ .Values.namespace }}
+spec:
+  secretName: backend-tls-secrets
+  duration: {{ .Values.certificates.duration }}
+  renewBefore: {{ .Values.certificates.renewBefore }}
+  issuerRef:
+    kind: ClusterIssuer
+    name: {{ .Values.certificates.issuerName }}
+  dnsNames:
+  - {{ .Values.scaas.baseUrl }}

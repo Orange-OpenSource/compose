@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaas
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.scaas.replicaCount }}
+  selector:
+    matchLabels:
+      app: scaas
+  template:
+    metadata:
+      labels:
+        app: scaas
+    spec:
+      containers:
+      - name: scaas
+        image: {{ .Values.scaas.image }}
+        args:
+          - "./scaas/bin/scaas"
+          - "-Dconfig.resource=application.conf"
+          - "-Dblockchain.active.0=alastria"
+          - "-Dblockchain.alastria.type=ethereumlegacy"
+          - "-Dblockchain.alastria.chain-id=2020"
+          - "-Dblockchain.alastria.url=https://blockchain-alastria-besu.liveidentity.com/rpc"
+          - "-Dblockchain.wallet.master-key=my-secret-key"
+          - "-Dproject.repository=deployments"
+          - "-Dmongodb.uri=mongodb://$(MONGO_BASE_URL):{{ .Values.mongo.port }}/scaas"
+          - "-Dplay.http.secret.key=$(SECRET_KEY)"
+        env:
+        - name: VIRTUAL_PORT
+          value: {{ .Values.scaas.containerPort | quote }}
+        - name: VIRTUAL_HOST
+          value: {{ .Values.scaas.baseUrl | quote }}
+        - name: LETSENCRYPT_HOST
+          value: {{ .Values.scaas.baseUrl | quote }}
+        - name: MONGO_BASE_URL
+          value: {{ .Values.mongo.baseUrl | quote }}
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: scaas-secrets
+              key: secret-key
+        ports:
+        - containerPort: {{ .Values.scaas.containerPort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scaas
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+  - port: {{ .Values.scaas.containerPort }}
+    targetPort: {{ .Values.scaas.containerPort }}
+  selector:
+    app: scaas

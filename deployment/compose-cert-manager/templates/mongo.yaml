@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config
+  namespace: {{ .Values.namespace }}
+data:
+  mongod.conf.orig: |
+    storage:
+      dbPath: /data/db
+      journal:
+        enabled: true
+    systemLog:
+      destination: file
+      logAppend: true
+      path: /dev/null
+    net:
+      port: {{ .Values.mongo.port }}
+      bindIp: 0.0.0.0
+    processManagement:
+      timeZoneInfo: /usr/share/zoneinfo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-scaas
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.mongo.replicaCount }}
+  selector:
+    matchLabels:
+      app: mongo-scaas
+  template:
+    metadata:
+      labels:
+        app: mongo-scaas
+    spec:
+      containers:
+      - name: mongo-scaas
+        image: {{ .Values.mongo.image }}
+        command: ["mongod", "--config", "/etc/mongod.conf.orig"]
+        volumeMounts:
+        - name: mongo-config
+          mountPath: /etc/mongod.conf.orig
+          subPath: mongod.conf.orig
+      volumes:
+      - name: mongo-config
+        configMap:
+          name: mongo-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-scaas
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+  - port: {{ .Values.mongo.port }}
+    targetPort: {{ .Values.mongo.port }}
+  selector:
+    app: mongo-scaas

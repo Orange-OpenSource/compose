@@ -1,0 +1,14 @@
+apiVersion: v2
+name: cluster-issuers
+description: Deploys ClusterIssuers for cert-manager and configures the associated RBAC roles.
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+
+maintainers:
+  - name: Erwann TAUPIN
+    email: erwann.taupin@orange.com
+keywords:
+  - cert-manager
+  - clusterissuer
+  - letsencrypt
