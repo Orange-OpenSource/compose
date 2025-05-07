@@ -1,122 +1,164 @@
+# Third Party Softwares
+
 This document contains the list of Third Party Softwares along with the license information.
 
-Third Party Software may impose additional restrictions and it is the user's responsibility to ensure that they have met the licensing requirements of the relevant license of the Third Party Software they are using.
+Third Party Software may impose additional restrictions and it is the user's responsibility to ensure that they have met the licensing
+requirements of the relevant license of the Third Party Software they are using.
 
-@nomicfoundation/hardhat-toolbox
+## @nomicfoundation/hardhat-toolbox
+
 Version 5.0.0
 
 Copyright Nomic Foundation
 
-@nomicfoundation/hardhat-toolbox is distributed under the terms and conditions of the MIT License. You may download the source code on the following website.
+**@nomicfoundation/hardhat-toolbox** is distributed under the terms and conditions of the [MIT License](https://opensource.org/license/mit).
+You may download the source code on the [following website](https://github.com/NomicFoundation/hardhat/blob/main/packages/hardhat-toolbox/).
 
-Mockito
+## Mockito
+
 Version 5.14.2
 
 Copyright Mockito contributors
 
-Mockito is distributed under the terms and conditions of the MIT License. You may download the source code on the following website.
+**Mockito** is distributed under the terms and conditions of the [MIT License](https://opensource.org/license/mit).
+You may download the source code on the [following website](https://github.com/mockito/mockito).
 
-Node
+## Node
+
 Version 20.15.0
 
-Copyright Node.js contributors
+Copyright  Node.js contributors
 
-Node is distributed under the terms and conditions of the MIT License. You may download the source code on the following website.
+**Node** is distributed under the terms and conditions of the [MIT License](https://opensource.org/license/mit).
+You may download the source code on the [following website](https://github.com/nodejs/node).
 
-Scalatestplus Play
+## Scalatestplus Play
+
 Version 7.0.1
 
 Copyright Artima, Inc.
 
-Scalatestplus Play is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**Scalatestplus Play** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/playframework/scalatestplus-play).
 
-Web3j
+## Web3j
+
 Version 4.12.1
 
-Web3j is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**Web3j** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/web3j).
 
-akka-stream
+## akka-stream
+
 Version 2.9.0
 
-akka-stream is distributed under the terms and conditions of the BUSL 1.1. You may download the source code on the following website.
+**akka-stream** is distributed under the terms and conditions of the [BUSL 1.1](https://www.hashicorp.com/fr/bsl).
+You may download the source code on the [following website](https://github.com/lightbend).
 
-commons-validator
+## commons-validator
+
 Version 1.7
 
-commons-validator is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**commons-validator** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/apache/commons-validator).
 
-de.flapdoodle.embed.mongo
+## de.flapdoodle.embed.mongo 
+
 Version 4.16.2
 
 Copyright Michael Mosmann, Martin Jöhren
 
-**de.flapdoodle.embed.mongo ** is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**de.flapdoodle.embed.mongo ** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo).
 
-hardhat
+## hardhat
+
 Version 2.22.6
 
-Copyright Nomic Foundation
+Copyright  Nomic Foundation
 
-hardhat is distributed under the terms and conditions of the MIT License. You may download the source code on the following website.
+**hardhat** is distributed under the terms and conditions of the [MIT License](https://opensource.org/license/mit).
+You may download the source code on the [following website](https://github.com/NomicFoundation/hardhat).
 
-jackson-databind
+## jackson-databind
+
 Version 2.17.1
 
-jackson-databind is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**jackson-databind** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/FasterXML/jackson).
 
-jackson-module-scala
+## jackson-module-scala
+
 Version 2.17.1
 
-jackson-module-scala is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**jackson-module-scala** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/FasterXML/jackson-module-scala).
 
-jbcrypt
+## jbcrypt
+
 Version 0.4
 
 Copyright Damien Miller
 
-jbcrypt is distributed under the terms and conditions of the MIT License. You may download the source code on the following website.
+**jbcrypt** is distributed under the terms and conditions of the [MIT License](https://opensource.org/license/mit).
+You may download the source code on the [following website](https://github.com/djmdjm/jBCrypt).
 
-play-json-joda
+## play-json-joda
+
 Version 3.0.4
 
 Copyright The Play Framework Contributors, Lightbend Inc.
 
-play-json-joda is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**play-json-joda** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/playframework/play-json).
 
-play-mockws-3-0"
+## play-mockws-3-0"
+
 Version 3.0.2
 
 Copyright leanovate
 
-play-mockws-3-0" is distributed under the terms and conditions of the MIT License. You may download the source code on the following website.
+**play-mockws-3-0"** is distributed under the terms and conditions of the [MIT License](https://opensource.org/license/mit).
+You may download the source code on the [following website](https://github.com/leanovate/play-mockws).
 
-play2-reactivemongo
+## play2-reactivemongo
+
 Version 1.1.0
 
 Copyright Stephane Godbillon and contributors
 
-play2-reactivemongo is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**play2-reactivemongo** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/ReactiveMongo/ReactiveMongo).
 
-reactivemongo-bson-compat
+## reactivemongo-bson-compat
+
 Version 0.20.13
 
-reactivemongo-bson-compat is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**reactivemongo-bson-compat** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/ReactiveMongo/ReactiveMongo).
 
-reactivemongo-play-json-compat
+## reactivemongo-play-json-compat
+
 Version 1.1.0
 
-reactivemongo-play-json-compat is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**reactivemongo-play-json-compat** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/ReactiveMongo/ReactiveMongo).
 
-scalatestplus-mockito
+## scalatestplus-mockito
+
 Version 3.2.19.0
 
 Copyright Artima, Inc.
 
-scalatestplus-mockito is distributed under the terms and conditions of the Apache 2.0 License. You may download the source code on the following website.
+**scalatestplus-mockito** is distributed under the terms and conditions of the [Apache 2.0 License](https://opensource.org/license/apache-2-0).
+You may download the source code on the [following website](https://github.com/scalatest/scalatestplus-mockito).
 
-undici
+## undici
+
 Version 6.20.1
 
 Copyright Matteo Collina and Undici contributors
 
-undici is distributed under the terms and conditions of the MIT License. You may download the source code on the following website.
+**undici** is distributed under the terms and conditions of the [MIT License](https://opensource.org/license/mit).
+You may download the source code on the [following website](https://github.com/nodejs/undici).
+
